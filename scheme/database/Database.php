@@ -269,10 +269,19 @@ class Database {
         );
 
         $ssl_ca = isset($database_config['ssl_ca']) ? trim((string) $database_config['ssl_ca']) : '';
-        if ($driver === 'mysql' && $ssl_ca !== '' && defined('PDO::MYSQL_ATTR_SSL_CA')) {
-            $options[PDO::MYSQL_ATTR_SSL_CA] = $ssl_ca;
-            if (defined('PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT')) {
-                $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = true;
+        if ($driver === 'mysql' && $ssl_ca !== '') {
+            $ssl_ca_option = defined('Pdo\\Mysql::ATTR_SSL_CA')
+                ? constant('Pdo\\Mysql::ATTR_SSL_CA')
+                : (defined('PDO::MYSQL_ATTR_SSL_CA') ? PDO::MYSQL_ATTR_SSL_CA : null);
+            $verify_server_option = defined('Pdo\\Mysql::ATTR_SSL_VERIFY_SERVER_CERT')
+                ? constant('Pdo\\Mysql::ATTR_SSL_VERIFY_SERVER_CERT')
+                : (defined('PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT') ? PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT : null);
+
+            if ($ssl_ca_option !== null) {
+                $options[$ssl_ca_option] = $ssl_ca;
+            }
+            if ($verify_server_option !== null) {
+                $options[$verify_server_option] = true;
             }
         }
 
