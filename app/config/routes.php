@@ -48,6 +48,7 @@ $router->get('/', 'Welcome::index');
 $router->get('/about-us', function() { echo 'About Us'; });
 
 $router->get('/student', 'StudentController::index');
+$router->get('/users', 'UsersController::index');
 
 $router->group(['middleware' => 'student'], function ($router) {
 	$router->get('/student/profile', 'StudentController::profile');
