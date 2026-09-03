@@ -269,6 +269,12 @@ class Database {
         );
 
         $ssl_ca = isset($database_config['ssl_ca']) ? trim((string) $database_config['ssl_ca']) : '';
+        if ($ssl_ca !== '' && !is_file($ssl_ca) && defined('ROOT_DIR')) {
+            $project_ca = ROOT_DIR . 'app' . DIRECTORY_SEPARATOR . 'certs' . DIRECTORY_SEPARATOR . basename($ssl_ca);
+            if (is_file($project_ca)) {
+                $ssl_ca = $project_ca;
+            }
+        }
         if ($driver === 'mysql' && $ssl_ca !== '') {
             $ssl_ca_option = defined('Pdo\\Mysql::ATTR_SSL_CA')
                 ? constant('Pdo\\Mysql::ATTR_SSL_CA')
