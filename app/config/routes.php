@@ -53,3 +53,18 @@ $router->get('/users', 'UsersController::index');
 $router->group(['middleware' => 'student'], function ($router) {
 	$router->get('/student/profile', 'StudentController::profile');
 });
+
+// Authentication routes
+$router->get('/login', 'AuthController::login');
+$router->post('/login/authenticate', 'AuthController::authenticate');
+$router->get('/logout', 'AuthController::logout');
+
+// Product routes with authentication
+$router->group(['middleware' => 'auth'], function ($router) {
+	$router->get('/products', 'ProductController::index');
+	$router->get('/products/create', 'ProductController::create');
+	$router->post('/products/store', 'ProductController::store');
+	$router->get('/products/edit/(:num)', 'ProductController::edit');
+	$router->post('/products/update/(:num)', 'ProductController::update');
+	$router->get('/products/delete/(:num)', 'ProductController::delete');
+});
