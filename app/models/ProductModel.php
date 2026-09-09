@@ -7,7 +7,7 @@ class ProductModel extends Model
 	protected $primary_key = 'id';
 	protected $fillable = ['product_name', 'description', 'price', 'quantity'];
 	protected $guarded = ['id'];
-	protected $timestamps = true;
+	protected $timestamps = false;
 
 	public function __construct()
 	{

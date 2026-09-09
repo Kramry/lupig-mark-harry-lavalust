@@ -113,14 +113,14 @@ Class Io {
 	 */
 	public function post($index = NULL)
 	{
-		if($index === NULL && !empty($_POST)) {
+		if ($index === NULL) {
 			$post = array();
 			foreach($_POST as $key => $value) {
 				$post[$key] = $value;
 			}
 			return $post;
 		}
-		return $_POST[$index];
+		return $_POST[$index] ?? NULL;
 	}
 
 	/**
@@ -131,14 +131,14 @@ Class Io {
 	 */
 	public function get($index = NULL)
 	{
-		if($index === NULL && !empty($_GET)) {
+		if ($index === NULL) {
 			$get = array();
 			foreach($_GET as $key => $value) {
 				$get[$key] = $value;
 			}
 			return $get;
 		}
-		return $_GET[$index];
+		return $_GET[$index] ?? NULL;
 	}
 
 	/**

@@ -35,12 +35,12 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
  */
 
 /*
-| -------------------------------------------------------------------
-| URI ROUTING
-| -------------------------------------------------------------------
-| Here is where you can register web routes for your application.
-|
-|
+|| -------------------------------------------------------------------
+|| URI ROUTING
+|| -------------------------------------------------------------------
+|| Here is where you can register web routes for your application.
+||
+||
 */
 /** @var object $router **/
 
@@ -64,7 +64,7 @@ $router->group(['middleware' => 'auth'], function ($router) {
 	$router->get('/products', 'ProductController::index');
 	$router->get('/products/create', 'ProductController::create');
 	$router->post('/products/store', 'ProductController::store');
-	$router->get('/products/edit/(:num)', 'ProductController::edit');
-	$router->post('/products/update/(:num)', 'ProductController::update');
-	$router->get('/products/delete/(:num)', 'ProductController::delete');
+	$router->get('/products/edit/{id}', 'ProductController::edit')->where_number('id');
+	$router->post('/products/update/{id}', 'ProductController::update')->where_number('id');
+	$router->get('/products/delete/{id}', 'ProductController::delete')->where_number('id');
 });

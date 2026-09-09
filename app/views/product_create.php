@@ -185,7 +185,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 				<p class="subtitle">Create a new product for your inventory.</p>
 			</div>
 		</div>
-		<a href="/logout" class="btn btn-secondary">
+		<a href="<?= htmlspecialchars(site_url('logout'), ENT_QUOTES, 'UTF-8') ?>" class="btn btn-secondary">
 			<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 				<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
 				<polyline points="16 17 21 12 16 7"/>
@@ -196,7 +196,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 	</div>
 
 	<div class="panel">
-		<form action="/products/store" method="POST">
+		<form action="<?= htmlspecialchars(site_url('products/create'), ENT_QUOTES, 'UTF-8') ?>" method="GET">
 			<div class="form-group">
 				<label for="product_name">Product Name <span class="required">*</span></label>
 				<input type="text" id="product_name" name="product_name" required maxlength="100">
@@ -225,7 +225,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 					</svg>
 					Add Product
 				</button>
-				<a href="/products" class="btn btn-secondary">Cancel</a>
+				<a href="<?= htmlspecialchars(site_url('products'), ENT_QUOTES, 'UTF-8') ?>" class="btn btn-secondary">Cancel</a>
 			</div>
 		</form>
 	</div>

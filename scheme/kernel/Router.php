@@ -85,6 +85,20 @@ class Router
     }
 
     /**
+     * Normalize route paths while preserving the root path.
+     *
+     * @param string $url
+     * @return string
+     */
+    private function normalize_route_path($url)
+    {
+        $url = '/' . ltrim((string) $url, '/');
+        $url = preg_replace('#/+#', '/', $url);
+
+        return $url === '/' ? '/' : rtrim($url, '/');
+    }
+
+    /**
      * GET Method
      *
      * @param string $url
@@ -202,9 +216,7 @@ class Router
      */
     private function add_route($url, $callback, $method = 'GET', $name = NULL)
     {
-		if (strpos($url, '/') !== 0) {
-			$url = '/' . $url;
-		}
+        $url = $this->normalize_route_path($url);
 
         $methods = is_string($method)
             ? explode('|', strtoupper($method))
@@ -212,7 +224,7 @@ class Router
 
         foreach ($methods as $http_method) {
             $route = [
-                'url' => $this->group_prefix . $this->sanitize_url($url),
+                'url' => $this->normalize_route_path($this->group_prefix . $url),
                 'callback' => $callback,
                 'method' => $http_method,
                 'name' => $name,
@@ -254,8 +266,7 @@ class Router
         // prefix
         if (isset($options['prefix'])) {
             $prefix = $options['prefix'];
-            if (strpos($prefix, '/') !== 0) $prefix = '/' . $prefix;
-            $this->group_prefix .= $prefix;
+            $this->group_prefix = $this->normalize_route_path($this->group_prefix . '/' . $prefix);
         }
 
         // middleware
@@ -298,6 +309,9 @@ class Router
                 $parts[] = $optional
                     ? '(?:/(' . $capture . '))?'
                     : '/(' . $capture . ')';
+            } elseif (preg_match('#^\(:([a-z]+)\)$#i', $segment, $m)) {
+                $capture = strtolower($m[1]) === 'num' ? '[0-9]+' : '[^/]+';
+                $parts[] = '/(' . $capture . ')';
             } else {
                 $parts[] = '/' . preg_quote($segment, '#');
             }

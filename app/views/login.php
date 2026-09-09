@@ -187,7 +187,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 			<?php unset($_SESSION['login_error']); ?>
 		<?php endif; ?>
 
-		<form action="/login/authenticate" method="POST">
+		<form action="<?= htmlspecialchars(site_url('login/authenticate'), ENT_QUOTES, 'UTF-8') ?>" method="POST">
 			<div class="form-group">
 				<label for="username">Username <span class="required">*</span></label>
 				<input type="text" id="username" name="username" required>
