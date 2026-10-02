@@ -963,6 +963,11 @@ class Model {
      */
     public function __get($key)
     {
+        if ($key === 'db' && (!isset(lava_instance()->properties['db']) || lava_instance()->properties['db'] === null)) {
+            $database = load_class('database', 'database');
+            lava_instance()->properties['db'] = $database::instance(NULL);
+        }
+
         return lava_instance()->$key;
     }
                             

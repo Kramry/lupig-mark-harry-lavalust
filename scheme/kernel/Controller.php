@@ -99,6 +99,12 @@ class Controller
 
 		$this->call = load_class('invoker', 'kernel');
 		$this->call->initialize();
+
+		if (!isset($this->properties['db']) || $this->properties['db'] === null) {
+			$database = load_class('database', 'database');
+			$this->properties['db'] = $database::instance(NULL);
+		}
+
 		$this->before_action();
 	}
 

@@ -68,3 +68,12 @@ $router->group(['middleware' => 'auth'], function ($router) {
 	$router->post('/products/update/{id}', 'ProductController::update')->where_number('id');
 	$router->get('/products/delete/{id}', 'ProductController::delete')->where_number('id');
 });
+
+// API Routes
+$router->post('/api/auth/login', 'ApiAuthController::login');
+$router->get('/api/auth/verify', 'ApiAuthController::verify');
+$router->get('/api/products', 'ApiProductController::index');
+$router->get('/api/products/{id}', 'ApiProductController::show')->where_number('id');
+$router->post('/api/products', 'ApiProductController::store');
+$router->post('/api/products/{id}', 'ApiProductController::update')->where_number('id');
+$router->get('/api/products/{id}/delete', 'ApiProductController::delete')->where_number('id');

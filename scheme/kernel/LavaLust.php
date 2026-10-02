@@ -235,7 +235,26 @@ if (php_sapi_name() === 'cli') {
     $method = 'GET';
     
 } else {
-    $url = $router->sanitize_url(str_replace($_SERVER['SCRIPT_NAME'], '', $_SERVER['PHP_SELF']));
+    $request_uri = $_SERVER['REQUEST_URI'] ?? $_SERVER['PHP_SELF'] ?? $_SERVER['SCRIPT_NAME'] ?? '/';
+    $requested_path = parse_url($request_uri, PHP_URL_PATH) ?: $request_uri;
+    $script_path = parse_url($_SERVER['SCRIPT_NAME'] ?? $_SERVER['PHP_SELF'] ?? '', PHP_URL_PATH) ?: '';
+
+    if (!empty($script_path) && $script_path !== '/') {
+        if (strpos($requested_path, $script_path) === 0) {
+            $requested_path = substr($requested_path, strlen($script_path));
+        } else {
+            $script_name = basename($script_path);
+            if ($script_name !== '' && strpos($requested_path, '/' . $script_name) === 0) {
+                $requested_path = substr($requested_path, strlen($script_name) + 1);
+            }
+        }
+    }
+
+    $requested_path = preg_replace('#^/index\.php#', '', $requested_path);
+    $requested_path = preg_replace('#/+#', '/', $requested_path);
+    $requested_path = $requested_path === '' ? '/' : $requested_path;
+
+    $url = $router->sanitize_url($requested_path);
     $method = isset($_SERVER['REQUEST_METHOD']) ? strtoupper($_SERVER['REQUEST_METHOD']) : 'GET';
 }
 

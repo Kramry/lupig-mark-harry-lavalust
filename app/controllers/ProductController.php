@@ -19,11 +19,15 @@ class ProductController extends Controller
 
 	public function create()
 	{
-		// Check if form was submitted
-		$product_name = $this->io->get('product_name');
-		$description = $this->io->get('description');
-		$price = $this->io->get('price');
-		$quantity = $this->io->get('quantity');
+		$this->call->view('product_create');
+	}
+
+	public function store()
+	{
+		$product_name = $this->io->post('product_name');
+		$description = $this->io->post('description');
+		$price = $this->io->post('price');
+		$quantity = $this->io->post('quantity');
 
 		if ($product_name && $price && $quantity) {
 			$data = [
@@ -37,16 +41,21 @@ class ProductController extends Controller
 			redirect('products');
 		}
 
-		$this->call->view('product_create');
+		redirect('products/create');
 	}
 
 	public function edit($id)
 	{
-		// Check if form was submitted
-		$product_name = $this->io->get('product_name');
-		$description = $this->io->get('description');
-		$price = $this->io->get('price');
-		$quantity = $this->io->get('quantity');
+		$data['product'] = $this->productModel->find($id);
+		$this->call->view('product_edit', $data);
+	}
+
+	public function update($id)
+	{
+		$product_name = $this->io->post('product_name');
+		$description = $this->io->post('description');
+		$price = $this->io->post('price');
+		$quantity = $this->io->post('quantity');
 
 		if ($product_name && $price && $quantity) {
 			$data = [
@@ -60,8 +69,7 @@ class ProductController extends Controller
 			redirect('products');
 		}
 
-		$data['product'] = $this->productModel->find($id);
-		$this->call->view('product_edit', $data);
+		redirect('products/edit/' . $id);
 	}
 
 	public function delete($id)
