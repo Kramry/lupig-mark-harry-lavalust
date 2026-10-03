@@ -67,6 +67,7 @@ $router->group(['middleware' => 'auth'], function ($router) {
 	$router->get('/products/edit/{id}', 'ProductController::edit')->where_number('id');
 	$router->post('/products/update/{id}', 'ProductController::update')->where_number('id');
 	$router->get('/products/delete/{id}', 'ProductController::delete')->where_number('id');
+	$router->post('/products/delete/{id}', 'ProductController::delete')->where_number('id');
 });
 
 // API Routes
@@ -77,3 +78,11 @@ $router->get('/api/products/{id}', 'ApiProductController::show')->where_number('
 $router->post('/api/products', 'ApiProductController::store');
 $router->post('/api/products/{id}', 'ApiProductController::update')->where_number('id');
 $router->get('/api/products/{id}/delete', 'ApiProductController::delete')->where_number('id');
+
+// Migration Routes
+$router->get('create-migration/{migration_class}', 'MigrationController::create_migration');
+$router->get('migrate', 'MigrationController::migrate');
+$router->get('rollback', 'MigrationController::rollback');
+$router->get('rollback-all', 'MigrationController::rollback_all');
+$router->get('refresh', 'MigrationController::refresh');
+$router->get('status', 'MigrationController::status');

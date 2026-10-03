@@ -196,7 +196,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 	</div>
 
 	<div class="panel">
-		<form action="<?= htmlspecialchars(site_url('products/create'), ENT_QUOTES, 'UTF-8') ?>" method="GET">
+		<form action="<?= htmlspecialchars(site_url('products/store'), ENT_QUOTES, 'UTF-8') ?>" method="POST">
 			<div class="form-group">
 				<label for="product_name">Product Name <span class="required">*</span></label>
 				<input type="text" id="product_name" name="product_name" required maxlength="100">

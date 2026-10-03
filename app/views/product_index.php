@@ -293,7 +293,7 @@ $products = $products ?? [];
 								<td>
 									<div class="actions">
 										<a href="<?= htmlspecialchars(site_url('products/edit/' . (string) ($product['id'] ?? '')), ENT_QUOTES, 'UTF-8') ?>" class="btn btn-small">Edit</a>
-										<a href="<?= htmlspecialchars(site_url('products/delete/' . (string) ($product['id'] ?? '')), ENT_QUOTES, 'UTF-8') ?>" class="btn btn-small btn-danger" onclick="return confirm('Are you sure you want to delete this product?');">Delete</a>
+										<form action="<?= htmlspecialchars(site_url('products/delete/' . (string) ($product['id'] ?? '')), ENT_QUOTES, 'UTF-8') ?>" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this product?');"><button type="submit" class="btn btn-small btn-danger">Delete</button></form>
 									</div>
 								</td>
 							</tr>

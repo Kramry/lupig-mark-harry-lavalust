@@ -197,7 +197,7 @@ $product = $product ?? [];
 	</div>
 
 	<div class="panel">
-		<form action="<?= htmlspecialchars(site_url('products/edit/' . (string) ($product['id'] ?? '')), ENT_QUOTES, 'UTF-8') ?>" method="GET">
+		<form action="<?= htmlspecialchars(site_url('products/update/' . (string) ($product['id'] ?? '')), ENT_QUOTES, 'UTF-8') ?>" method="POST">
 			<div class="form-group">
 				<label for="product_name">Product Name <span class="required">*</span></label>
 				<input type="text" id="product_name" name="product_name" required maxlength="100" value="<?= htmlspecialchars((string) ($product['product_name'] ?? ''), ENT_QUOTES, 'UTF-8') ?>">
