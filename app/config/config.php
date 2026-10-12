@@ -79,7 +79,7 @@ $config['environment'] = getenv('APP_ENV') ?: 'development';
 | WARNING: You MUST set this value!
 |
 */
-$config['base_url'] 				= '';
+$config['base_url'] 				= 'https://lupig-mark-harry-lavalust-3.onrender.com';
 
 require_once APP_DIR . 'config/middleware.php';
 
