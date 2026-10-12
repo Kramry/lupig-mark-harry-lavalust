@@ -79,7 +79,7 @@ $config['environment'] = getenv('APP_ENV') ?: 'development';
 | WARNING: You MUST set this value!
 |
 */
-$config['base_url'] 				= 'http://localhost/LavaLust-dev-v4/public/';
+$config['base_url'] 				= '';
 
 require_once APP_DIR . 'config/middleware.php';
 
